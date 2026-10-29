@@ -4,8 +4,6 @@ import json
 import os
 import sqlite3
 
-DB = os.getenv("OPS_AGENT_DB", "ops-agent.db")
-
 SCHEMA = """
 create table if not exists runs (id integer primary key, task text, status text default 'running',
                                  created text default current_timestamp);
@@ -23,8 +21,9 @@ create table if not exists closed (ticket_id text primary key, summary text, run
 
 
 class Store:
-    def __init__(self, path: str = DB):
-        self.db = sqlite3.connect(path, check_same_thread=False)  # the demo reuses one store across reruns
+    def __init__(self, path: str | None = None):
+        self.path = path or os.getenv("OPS_AGENT_DB", "ops-agent.db")
+        self.db = sqlite3.connect(self.path, check_same_thread=False)  # the demo reuses one store across reruns
         self.db.row_factory = sqlite3.Row
         self.db.executescript(SCHEMA)
 
