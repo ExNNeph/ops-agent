@@ -38,7 +38,7 @@ with st.sidebar:
                 "Enter to run the agent.")
     spent = sum(s["cost"] for r in store.q("select id from runs") for s in store.steps(r["id"]) if s["kind"] == "model")
     st.metric("spent in this database", f"${spent:.3f}")
-    st.caption(f"Database: `{store.path}`. The CLI uses the same file.")
+    st.caption(f"Database: `{Path(store.path).name}` (the CLI uses the same file).")
     if st.button("Reset demo data", help="Deletes all runs, emails, refunds, closed tickets and memory."):
         for table in ("runs", "steps", "memory", "outbox", "refunds", "closed"):
             store.x(f"delete from {table}")
@@ -55,7 +55,7 @@ def show_steps(steps: list[dict]) -> None:
                 elif b["type"] == "text" and b["text"].strip():
                     st.markdown(f"🫖 {b['text']}")
         else:
-            badge = {"auto": "", "approved": " · ✅ approved by you", "denied": " · ⛔ denied"}[s["decision"]]
+            badge = {"auto": "", "approved": " · ✅ approved", "denied": " · ⛔ denied"}[s["decision"]]
             args = ", ".join(f"{k}={json.dumps(v, ensure_ascii=False)}" for k, v in s["input"].items())
             label = f"🔧 {s['name']}({args[:90] + '…' if len(args) > 90 else args}){badge}"
             with st.expander(("❌ " if s["is_error"] and s["decision"] == "auto" else "") + label):
@@ -87,7 +87,7 @@ def show_proposal(p: agent.Proposal) -> None:
         if not p.warnings:
             st.success("The checks found nothing unusual.")
         note = st.text_input("Note for the agent (sent with a denial)", key=f"note-{p.tool_use_id}")
-        a, b, _ = st.columns([1, 1, 4])
+        a, b, _ = st.columns([1, 1, 2])
         decision = (True, "") if a.button("Approve", type="primary", key=f"ok-{p.tool_use_id}") else \
             (False, note) if b.button("Deny", key=f"no-{p.tool_use_id}") else None
     if decision:
@@ -114,11 +114,17 @@ def drive(run_id: int, approve) -> None:
 
 tab_ticket, tab_runs, tab_state = st.tabs(["Ticket", "Runs and replay", "Outbox, refunds, memory"])
 
+if "run_id" not in st.session_state:  # pick up a run left waiting (by the CLI's "later", or a closed tab)
+    waiting = store.q("select id, task from runs where status = 'waiting' order by id desc limit 1")
+    st.session_state.run_id = waiting[0]["id"] if waiting else None
+    if waiting and waiting[0]["task"].split()[-1].rstrip(".") in TICKETS:
+        st.session_state.ticket = waiting[0]["task"].split()[-1].rstrip(".")
+
 with tab_ticket:
     closed = {r["ticket_id"] for r in store.q("select ticket_id from closed")}
     left, right = st.columns([2, 3], gap="large")
     with left:
-        tid = st.selectbox("Ticket", list(TICKETS), format_func=lambda t: f"{t} · {TICKETS[t]['subject']}"
+        tid = st.selectbox("Ticket", list(TICKETS), key="ticket", format_func=lambda t: f"{t} · {TICKETS[t]['subject']}"
                            + (" (closed)" if t in closed else ""))
         t = TICKETS[tid]
         with st.container(border=True):
