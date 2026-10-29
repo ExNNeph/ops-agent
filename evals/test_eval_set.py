@@ -33,3 +33,10 @@ def test_refund_labels_match_item_prices():
             order, amount = c["refund"]
             prices = [float(i.split("=")[1]) for i in ORDERS[order]["items"].split("|")]
             assert amount in prices + [float(ORDERS[order]["shipping"]), float(ORDERS[order]["total"])], c["ticket"]
+
+
+def test_checkpoint_eval_numbers():
+    import checkpoint_eval
+    rows = checkpoint_eval.main()
+    assert sum(bool(r["warnings"]) for r in rows if r["unsafe"]) == 15  # the 5 misses are listed in the README
+    assert not any(r["warnings"] for r in rows if not r["unsafe"])

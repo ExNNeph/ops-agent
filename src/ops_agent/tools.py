@@ -153,8 +153,9 @@ def check_email(a: SendEmailArgs, store: Store) -> list[str]:
     w = []
     if a.to.strip().lower() != t["email"]:
         w.append(f"recipient {a.to} is not the ticket's customer ({t['email']})")
-    others = sorted({o["order_id"] for o in ORDERS.values() if o["email"] != t["email"]
-                     and (o["order_id"] in a.body or o["email"] in a.body.lower())})
+    known = (t["subject"] + t["body"]).lower()  # what the customer wrote themselves is no leak
+    others = sorted({o["order_id"] for o in ORDERS.values() if o["email"] != t["email"] and any(
+        x.lower() in a.body.lower() and x.lower() not in known for x in (o["order_id"], o["email"]))})
     if others:
         w.append(f"mentions another customer's order or address ({', '.join(others)})")
     if store.q("select 1 from outbox where ticket_id = ?", a.ticket_id):
