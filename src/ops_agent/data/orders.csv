@@ -1,0 +1,22 @@
+order_id,email,name,items,shipping,total,ordered,promised,delivered,status,refunded
+NT-5001,anna.berg@example.com,Anna Berg,Sencha Green 250g=18.90,4.90,23.80,2026-10-15,2026-10-20,2026-10-20,delivered,0.00
+NT-5002,jonas.richter@example.de,Jonas Richter,Earl Grey Classic 500g=24.50,4.90,29.40,2026-08-25,2026-08-30,2026-08-30,delivered,0.00
+NT-5003,mia.schulz@example.de,Mia Schulz,Assam Breakfast 250g=13.90|Chai Spice 200g=14.00,4.90,32.80,2026-10-06,2026-10-10,2026-10-18,delivered,0.00
+NT-5004,k.weber@example.com,Katrin Weber,Rooibos Vanilla 100g=9.90,4.90,14.80,2026-10-19,2026-10-23,2026-10-23,delivered,0.00
+NT-5005,tom.fischer@example.com,Tom Fischer,Tea Ceremony Set=249.00,0.00,249.00,2026-10-12,2026-10-16,2026-10-16,delivered,0.00
+NT-5006,sara.klein@example.com,Sara Klein,Darjeeling First Flush 100g=22.00,4.90,26.90,2026-10-14,2026-10-18,2026-10-18,delivered,0.00
+NT-5007,paul.meier@example.com,Paul Meier,Peppermint 100g=7.50,4.90,12.40,2026-10-01,2026-10-05,2026-10-05,delivered,0.00
+NT-5008,lisa.wolf@example.de,Lisa Wolf,Sencha Green 250g=18.90|Matcha 30g=21.00,4.90,44.80,2026-10-17,2026-10-21,2026-10-21,delivered,0.00
+NT-5009,ben.hartmann@example.com,Ben Hartmann,Lapsang Souchong 100g=11.50,4.90,16.40,2026-09-20,2026-09-24,2026-09-24,delivered,0.00
+NT-5010,chris.lang@example.com,Chris Lang,Jasmine Pearls 100g=15.40,4.90,20.30,2026-10-02,2026-10-06,2026-10-06,delivered,15.40
+NT-5011,nina.vogel@example.com,Nina Vogel,Darjeeling Second Flush 100g=22.00,4.90,26.90,2026-10-21,2026-10-25,2026-10-25,delivered,0.00
+NT-5012,julia.braun@example.com,Julia Braun,Oolong Milky 100g=16.90,4.90,21.80,2026-10-18,2026-10-22,,shipped,0.00
+NT-5013,felix.koch@example.de,Felix Koch,Oolong Milky 100g=16.90|Jasmine Pearls 100g=15.40,4.90,37.20,2026-10-10,2026-10-14,2026-10-14,delivered,0.00
+NT-5014,hanna.zimmer@example.com,Hanna Zimmer,Genmaicha 200g=12.90|Hojicha 100g=14.90,4.90,32.70,2026-10-27,2026-10-31,,processing,0.00
+NT-5015,leon.wagner@example.de,Leon Wagner,Pu-Erh 2018 Cake=38.00,4.90,42.90,2026-10-24,2026-10-29,,shipped,0.00
+NT-5016,emma.schmitt@example.com,Emma Schmitt,Chamomile 100g=12.90,4.90,17.80,2026-10-16,2026-10-21,2026-10-21,delivered,0.00
+NT-5017,sophie.krause@example.de,Sophie Krause,Assam Breakfast 250g=13.90,4.90,18.80,2026-10-18,2026-10-22,2026-10-22,delivered,0.00
+NT-5018,sophie.krause@example.de,Sophie Krause,Earl Grey Classic 500g=24.50,4.90,29.40,2026-06-28,2026-07-02,2026-07-02,delivered,0.00
+NT-5019,david.roth@example.com,David Roth,Gift Box Grand Tour=96.00,0.00,96.00,2026-10-19,2026-10-23,2026-10-24,delivered,0.00
+NT-5020,laura.peters@example.de,Laura Peters,Matcha 30g=21.00,4.90,25.90,2026-10-11,2026-10-15,2026-10-15,delivered,0.00
+NT-5021,anna.berg@example.com,Anna Berg,Chai Spice 200g=14.00,4.90,18.90,2026-09-02,2026-09-06,2026-09-06,delivered,0.00

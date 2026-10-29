@@ -1,0 +1,26 @@
+[project]
+name = "ops-agent"
+version = "0.1.0"
+description = "A support agent for a small tea shop: typed pydantic tools, SQLite memory, a human checkpoint before every email, refund and ticket close, and a step log that replays a run offline."
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2", "anthropic>=0.80"]
+
+[project.optional-dependencies]
+demo = ["streamlit>=1.50"]
+dev = ["pytest", "streamlit>=1.50"]
+
+[project.scripts]
+ops-agent = "ops_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ops_agent = ["data/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "evals"]
